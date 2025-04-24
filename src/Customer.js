@@ -1,11 +1,15 @@
 import chalk from 'chalk';
+import CafePerson from './CafePerson.js';
 
-export default class Customer {
+export default class Customer extends CafePerson {
 	#hasDrink = false;
 
 	constructor(name) {
-		this.id = crypto.randomUUID();
-		this.name = name;
+		super(name);
+	}
+
+	getRole() {
+		return '고객';
 	}
 
 	order(menu, cashier) {
@@ -24,9 +28,5 @@ export default class Customer {
 
 	hasReceivedDrink() {
 		return this.#hasDrink;
-	}
-
-	equals(other) {
-		return other instanceof Customer && this.id == other.id;
 	}
 }

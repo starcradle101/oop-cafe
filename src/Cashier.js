@@ -1,18 +1,23 @@
 import chalk from 'chalk';
+import CafePerson from './CafePerson.js';
 
-export default class Cashier {
+export default class Cashier extends CafePerson {
 	#currentCustomer = null;
 
-	constructor(barista) {
-		this.id = crypto.randomUUID();
+	constructor(name, barista) {
+		super(name);
 		this.barista = barista;
+	}
+
+	getRole() {
+		return '캐시어';
 	}
 
 	takeOrder(menu, customer) {
 		this.#currentCustomer = customer;
 		console.log(
 			chalk.yellow(
-				`[캐시어] '${customer}로부터' 주문 받은 '${menu}'를 바리스타에게 전달합니다.`
+				`[캐시어] '${customer.name}'로부터 주문 받은 '${menu}'를 바리스타에게 전달합니다.`
 			)
 		);
 		this.barista.makeDrink(menu, this);
@@ -30,9 +35,5 @@ export default class Cashier {
 			this.#currentCustomer.receive(drink);
 			this.#currentCustomer = null;
 		}
-	}
-
-	equals(other) {
-		return other instanceof Cashier && this.id === other.id;
 	}
 }

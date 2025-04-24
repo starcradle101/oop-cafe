@@ -1,28 +1,37 @@
 import chalk from 'chalk';
+import CafePerson from './CafePerson.js';
 
-export default class Barista {
+export default class Barista extends CafePerson {
 	#isBusy = false;
 
-	constructor() {
-		this.id = crypto.randomUUID();
+	constructor(name) {
+		super(name);
+	}
+
+	getRole() {
+		return '바리스타';
 	}
 
 	makeDrink(menu, cashier) {
 		if (this.#isBusy) {
 			console.log(
 				chalk.red(
-					`[바리스타] 현재 바쁨. '${menu}' 주문은 잠시 후에 처리됩니다.`
+					`[${this.getRole()}] 현재 바쁨. '${menu}' 주문은 잠시 후에 처리됩니다.`
 				)
 			);
 			setTimeout(() => this.makeDrink(menu, cashier), 1000);
 		}
 
 		this.#isBusy = true;
-		console.log(chalk.magenta(`[바리스타] '${menu}' 음료를 준비합니다.`));
+		console.log(
+			chalk.magenta(`[${this.getRole()}] '${menu}' 음료를 준비합니다.`)
+		);
 		setTimeout(() => {
 			this.#isBusy = false;
 			console.log(
-				chalk.cyan(`[바리스타] '${menu}' 준비 완료. 캐시어에게 전달합니다.`)
+				chalk.cyan(
+					`[${this.getRole()}] '${menu}' 준비 완료. 캐시어에게 전달합니다.`
+				)
 			);
 			cashier.deliver(menu);
 		}, 1000);
@@ -30,9 +39,5 @@ export default class Barista {
 
 	isAvailable() {
 		return !this.#isBusy;
-	}
-
-	equals(other) {
-		return other instanceof Barista && this.id === other.id;
 	}
 }
