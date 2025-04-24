@@ -1,10 +1,9 @@
 import Customer from './src/Customer.js';
-import Cashier from './src/Cashier.js';
 import Barista from './src/Barista.js';
+import Cashier from './src/Cashier.js';
 
 const barista = new Barista();
 const cashier = new Cashier(barista);
 const customer = new Customer('레니');
 
-cashier.setCustomer(customer);
-customer.order('에스프레소', cashier);
+customer.order('카페라떼', cashier);
