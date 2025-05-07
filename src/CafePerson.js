@@ -4,7 +4,6 @@ export default class CafePerson {
 			throw new Error('CafePerson은 직접 인스턴스화 할 수 없습니다.');
 		}
 		this.name = name;
-		this.id = crypto.randomUUID();
 	}
 
 	getRole() {
@@ -13,9 +12,5 @@ export default class CafePerson {
 
 	introduce() {
 		return `[${this.getRole()}] ${this.name}`;
-	}
-
-	equals(other) {
-		return other instanceof CafePerson && this.id === other.id;
 	}
 }
